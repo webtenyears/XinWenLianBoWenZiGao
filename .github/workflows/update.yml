@@ -4,10 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     # 东八区 (UTC+8), 所以要-8小时
-    - cron: '30 12 * * *'  # 修复：添加了缺少的星号
-
-permissions:
-  contents: write  # 关键修改：添加写入权限
+    - cron: '30 12 * * *'
 
 jobs:
   update:
@@ -20,27 +17,11 @@ jobs:
           node-version: 16
       - run: npm install
       - run: npm run index
-      - run: git config --local user.email "github-actions[bot]@users.noreply.github.com"
+      - run: git config --local user.email "github-actions[bot]@github.com"
       - run: git config --local user.name "github-actions[bot]"
-      
-      # 添加检查是否有变更的步骤，避免空提交错误
-      - name: Check for changes
-        id: verify-changed-files
-        run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "changed=false" >> $GITHUB_OUTPUT
-          fi
-      
-      - name: Commit changes
-        if: steps.verify-changed-files.outputs.changed == 'true'
-        run: |
-          git add .
-          git commit -m "AUTO UPDATE [bot] - $(date '+%Y-%m-%d %H:%M:%S')"
-      
+      - run: git add .
+      - run: git commit -m "AUTO UPDATE [bot]"
       - name: Push master changes
-        if: steps.verify-changed-files.outputs.changed == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
