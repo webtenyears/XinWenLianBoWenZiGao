@@ -10,6 +10,8 @@ jobs:
   update:
     name: Update today xin wen lian bo
     runs-on: ubuntu-latest
+    env:
+      XINWENLIANBO: ${{ secrets.xinwenlianbo }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -17,6 +19,8 @@ jobs:
           node-version: 16
       - run: npm install
       - run: npm run index
+        env:
+          XINWENLIANBO: ${{ secrets.xinwenlianbo }}
       - run: git config --local user.email "github-actions[bot]@github.com"
       - run: git config --local user.name "github-actions[bot]"
       - run: git add .
