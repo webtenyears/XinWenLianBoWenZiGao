@@ -21,8 +21,8 @@ jobs:
       - run: npm run index
         env:
           XINWENLIANBO: ${{ secrets.xinwenlianbo }}
-      - run: git config --local user.email "github-actions[bot]@github.com"
-      - run: git config --local user.name "github-actions[bot]"
+      - run: git config --local user.email "webtenyears@gmail.com"
+      - run: git config --local user.name "test"
       - run: git add .
       - run: git commit -m "AUTO UPDATE [bot]"
       - name: Push master changes
