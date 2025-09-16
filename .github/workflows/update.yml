@@ -25,8 +25,8 @@ jobs:
       - run: git config --local user.name "test"
       - run: git add .
       - run: git commit -m "AUTO UPDATE [bot]"
-      - name: Push master changes
-        uses: ad-m/github-push-action@master
+      - name: Push main changes
+        uses: ad-m/github-push-action@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: master
+          branch: main
